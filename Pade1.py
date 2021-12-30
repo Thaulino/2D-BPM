@@ -128,7 +128,7 @@ def PadeApproximation(startAr ,nRef, freq, nMeshAr,xSize,zSize,xStep,zStep):
                   resultBPM[i,zCurrent+1]=complex((nextStepResult[0,i].real),(nextStepResult[0,i].imag))
                   i=i+1
             if ma.fmod(zCurrent,50) == 0:
-                  print "-----> running"
+                  print("-----> running")
 ##                  pl.figure(666)
 ##                  matrix=np.matrix(resultBPM[:,:].real)
 ##                  pl.imshow(matrix)

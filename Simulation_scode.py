@@ -1,8 +1,8 @@
 
-import Tkinter as tk    # Importing the Tkinter (tool box) library 
+import tkinter as tk    # Importing the Tkinter (tool box) library 
 from PIL import ImageTk
 import numpy as np
-import Image as im
+import image as im
 import math as ma
 import cmath as cma
 import pylab as pl
@@ -11,7 +11,7 @@ import Pade1
 
 
 
-print "\n \n ###################### Start ################################## \n\n"
+print("\n \n ###################### Start ################################## \n\n")
 
 
 
@@ -48,12 +48,13 @@ waveguide_image = np.zeros((height_im,width_im,3),np.uint8)
 #Cladding
 waveguide_image[:,:]=cladding_color #-> n=1.6
 #Waveguide
-zz1=0.05*width_im
-zz2=0.4*width_im
-x1=0.12*height_im
-x2=0.24*height_im
+zz1=int(0.05*width_im)
+zz2=int(0.4*width_im)
+x1=int(0.12*height_im)
+x2=int(0.24*height_im)
+
 ################ upper waveguide
-waveguide_image[(x1):(x2),0:zz1]=core_color #
+waveguide_image[x1:x2,0:zz1] = core_color #
 
 #Draw a right narrow curve
 
@@ -86,10 +87,10 @@ waveguide_image[(xx1-1):(xx2-1),zz1:width_im]=core_color
 ##   xx2=xx2+1
 
 ##############################   lower waveguide
-zz1=0.05*width_im
+zz1=int(0.05*width_im)
 
-x3=0.8*height_im
-x4=0.92*height_im
+x3=int(0.8*height_im)
+x4=int(0.92*height_im)
 waveguide_image[ (x3):(x4),0:zz1]=core_color # -> n=1.5
 
 #Draw a left narrow curve
@@ -105,7 +106,7 @@ while (xx3>0.52*height_im) and (zz1<(width_im-13)):
    zz1=zz1+3
    xx3=xx3-1
    xx4=xx4-1
-zz2=zz1+0.0833*width_im
+zz2=int(zz1+0.0833*width_im)
 waveguide_image[ (xx3+1):(xx4+1),zz1:zz2]=core_color
 
 #Draw a right narrow curve
@@ -123,10 +124,10 @@ while (x4<0.92*height_im) and (zz2<(width_im-13)):
    x3=x3+1
    x4=x4+1
 
-xx3=x3-2
-xx4=x4-2
-zz1=zz2
-zz2=zz1+10
+xx3=int(x3-2)
+xx4=int(x4-2)
+zz1=int(zz2)
+zz2=int(zz1+10)
 
 waveguide_image[ (xx3+1):(xx4+1),zz1:zz2]=core_color
 
@@ -143,7 +144,7 @@ while (xx3>0.6*height_im) and (zz1<(width_im-13)):
    xx3=xx3-1
    xx4=xx4-1
 
-zz2=zz1+10
+zz2=int(zz1+10)
 
 waveguide_image[ (xx3+1):(xx4+1),zz1:zz2]=core_color
 
@@ -161,10 +162,10 @@ while (x4<0.92*height_im) and (zz2<(width_im-13)):
    x3=x3+1
    x4=x4+1
 
-xx3=x3-2
-xx4=x4-2
-zz1=zz2
-zz2=zz1+10
+xx3=int(x3-2)
+xx4=int(x4-2)
+zz1=int(zz2)
+zz2=int(zz1+10)
 
 waveguide_image[ (xx3+1):(xx4+1),zz1:zz2]=core_color
 
@@ -180,12 +181,12 @@ while (xx3>0.6*height_im) and (zz1<(width_im-13)):
    xx3=xx3-1
    xx4=xx4-1
 
-zz2=zz1+10
+zz2=int(zz1+10)
 
 waveguide_image[ (xx3+1):(xx4+1),zz1:zz2]=core_color
 
-x3=xx3+1
-x4=xx4+1
+x3=int(xx3+1)
+x4=int(xx4+1)
 
 #draw right curve
 while (x4<0.92*height_im) and (zz2<(width_im-13)):
@@ -280,9 +281,9 @@ dir = left_to_right
 
 if (dir):
    dir=dir
-   #print "wave travels from left to right -->"
+   #print("wave travels from left to right -->"
 else:
-    print "!!! check direction !!!"
+    print("!!! check direction !!!")
 
 
 #if ((raw_input())=='y'):
@@ -329,8 +330,8 @@ while i<height_im:
    i=i+1
    
 
-#print "1 px=",le_px,"m"
-print "1 px \n             ->",le_px*ma.pow(10,6),"um \n\n"
+#print("1 px=",le_px,"m"
+print("1 px \n             ->",le_px*ma.pow(10,6),"um \n\n")
 
 #higher cladding
 claddingH=[colorchange_list[1]+1, height_im]
@@ -343,7 +344,7 @@ claddingL=[0, colorchange_list[0]-1]
    
 # calculate width of core
 d_core=(core[1]-core[0])*le_px/2
-print "d core of waveguide \n             ->",d_core
+print("d core of waveguide \n             ->",d_core)
 
 #center of core (px)
 center_for_BPM =  core[0]+ (core[1]-core[0])/2
@@ -358,15 +359,15 @@ center_for_BPM =  core[0]+ (core[1]-core[0])/2
 #Some constants
 c_vacuum =2.998
 c_vacuum =c_vacuum*ma.pow(10,8)
-#print "c=",c_vacuum
+#print("c=",c_vacuum)
 
-print "\n \n++++++ Start Mode analysis ++++++++++++++++++++++++++++++++++++++++\n \n"
+print("\n \n++++++ Start Mode analysis ++++++++++++++++++++++++++++++++++++++++\n \n")
 
 # #######################################Frequency for analysis
 
 #given Frequency
 f_given = 10*ma.pow(10,12)
-# print "Frequency for analysis  \n             ->",f_given*ma.pow(10,-12),"THz"
+# print("Frequency for analysis  \n             ->",f_given*ma.pow(10,-12),"THz"
 
 
 # ###################################### Variables for analysis of world
@@ -386,7 +387,7 @@ k2= n2*k_vacuum
 
 # Vworld -  constant for simulation world
 #Vworld= (2*ma.pi*d_core)*(1/L_vacuum)*ma.sqrt(Dnworld)
-#print "V constant for simulation world \n             ->", Vworld
+#print("V constant for simulation world \n             ->", Vworld
 
 
 
@@ -414,17 +415,17 @@ def function_find_neff (E_error, E_p,  E_n1, E_n2, E_k0,E_d):
               
           E_error_apriori= E_error_apriori/2
           if i>ma.pow(10,4):
-                print"break loop"
-                print "apriori error ",E_error_apriori
-                print "eigenvalue" ,E_neff_center
+                print("break loop")
+                print("apriori error ",E_error_apriori)
+                print("eigenvalue" ,E_neff_center)
                 break
                
           #control if E_neff_up and E_neff_down inside boundaries
           if E_neff_up>E_neff_max:
-             print "++++++++++++++ E_neff_up out of boundaries !   find_neff"
+             print("++++++++++++++ E_neff_up out of boundaries !   find_neff")
              E_neff_up=E_n1
           if E_neff_down<E_neff_min:
-             print "++++++++++++++ E_neff_down out of boundaries !    find_neff"
+             print("++++++++++++++ E_neff_down out of boundaries !    find_neff")
              E_neff_down=E_n2
              
    return E_neff_center
@@ -479,13 +480,13 @@ while f_given<=1000*ma.pow(10,12):
 #pl.draw()   
 
 ########################################## BPM Simulation ###################################################
-print "\n \n+++++++++ Start BPM sim ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n \n"
+print("\n \n+++++++++ Start BPM sim ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n \n")
 
-print "Frequency for BPM \n                     --> ",BPM_freq*ma.pow(10,-12),"THZ"
-print "effective index for BPM \n                     --> ",BPM_neff
-print "A (amplitude) for BPM \n                     --> ",BPM_A
+print("Frequency for BPM \n                     --> ",BPM_freq*ma.pow(10,-12),"THZ")
+print("effective index for BPM \n                     --> ",BPM_neff)
+print("A (amplitude) for BPM \n                     --> ",BPM_A)
 
-print "\n ++++++++ Calc initial mode \n"
+print("\n ++++++++ Calc initial mode \n")
 
 L_vacuum = c_vacuum/BPM_freq
 k_vacuum = 2*ma.pi/L_vacuum
@@ -502,7 +503,7 @@ BPM_B= BPM_A*ma.cos(d_core*ma.sqrt(ma.pow(k1,2)-ma.pow(k_vacuum*BPM_neff,2)))
 def function_Hz_core(x,k1,bheta,A,d):
    "calculate the value of Hz in the core abs(x)<=d for z=0 depending on x"
    if abs(x)>d:
-      print "++++++++++++++ x out of boundaries ! function_Hz_core" 
+      print("++++++++++++++ x out of boundaries ! function_Hz_core")
       return 0
    Hz_core=A*ma.cos(x*ma.sqrt(ma.pow(k1,2)-ma.pow(bheta,2)))
    return Hz_core
@@ -510,7 +511,7 @@ def function_Hz_core(x,k1,bheta,A,d):
 def function_Hz_cladding(x,k2,bheta,B,d):
    "calculate the value of Hz in the cladding abs(x)>d for z=0 depending on x"
    if abs(x)<=d:
-      print "++++++++++++++ x out of boundaries ! function_Hz_cladding" 
+      print("++++++++++++++ x out of boundaries ! function_Hz_cladding")
       return 0
    if x>d:
       Hz_cladding=B*ma.exp(-(x-d)*ma.sqrt(ma.pow(bheta,2)-ma.pow(k2,2)))
@@ -554,4 +555,4 @@ pl.show()
 
 # def PadeApproximation(startAr ,nref, freq, nMeshAr,xSize,zSize,xStep,zStep):
 t=Pade1.PadeApproximation(y_axis, BPM_neff, BPM_freq, n_mesh_ar, height_im, width_im, le_px,le_px*10)    
-print t
+print(t)
