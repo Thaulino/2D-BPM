@@ -87,13 +87,6 @@ def PadeApproximation(startAr ,nRef, freq, nMeshAr,xSize,zSize,xStep,zStep):
                   zNextConstantAr[xCurrent,xCurrent-1]=alpha
                   xCurrent=xCurrent+1
                   
-##            #show real part of NowConstant   
-##            pl.figure(217)
-##            matrix=np.matrix(zNowConstantAr[:,:].real)
-##            pl.imshow(matrix)
-##            pl.colorbar()
-##            pl.draw()
-##            pl.show()
             #Matrixmultiplikation um nächste Elemente zu berechnen
             zNextConstantInverseAr=np.linalg.inv(zNextConstantAr)
             multiConstantAr=np.dot(zNextConstantInverseAr,zNowConstantAr)
@@ -109,7 +102,9 @@ def PadeApproximation(startAr ,nRef, freq, nMeshAr,xSize,zSize,xStep,zStep):
       pl.imshow(matrix)
       pl.colorbar()
       pl.draw()
+      pl.title("Meshed area")
       pl.show()
+      
       
       zCurrent=0
       #Array for saving magnetic Field Hz Amplitude
@@ -119,22 +114,13 @@ def PadeApproximation(startAr ,nRef, freq, nMeshAr,xSize,zSize,xStep,zStep):
       #loop wird zSize-2 mal durchlaufen, weil eine Ebene als Start gegeben ist
       while zCurrent<zSize-1:
             nextStepResult=PadeOneStep(resultBPM[:,zCurrent])
-            #print nextStepResult
-            #print np.shape(nextStepResult)
             i=0
             while i<xSize:
-                  #print nextStepResult[0,i].imag
-                  #print nextStepResult[0,i].real
                   resultBPM[i,zCurrent+1]=complex((nextStepResult[0,i].real),(nextStepResult[0,i].imag))
                   i=i+1
             if ma.fmod(zCurrent,50) == 0:
                   print("-----> running")
-##                  pl.figure(666)
-##                  matrix=np.matrix(resultBPM[:,:].real)
-##                  pl.imshow(matrix)
-##                  pl.colorbar()
-##                  pl.draw()
-##                  pl.show()
+##                 
             zCurrent=zCurrent+1
 
             
@@ -149,35 +135,18 @@ def PadeApproximation(startAr ,nRef, freq, nMeshAr,xSize,zSize,xStep,zStep):
                   ii=ii+1
             i=i+1
      
-      
 
-      
-
-##      #loop wird zSize-2 mal durchlaufen, weil eine Ebene als Start gegeben ist
-##      while zCurrent<zSize-1:
-##            resultBPM[:,zCurrent+1]=PadeOneStep(resultBPM[:,zCurrent])
-##            zCurrent=zCurrent+1
-##            print zCurrent
-##
-##      #create array with absolute value of BPM result
-##      resultAbBPM=np.zeros((xSize,zSize))
-##      i=0
-##      while i<xSize:
-##            ii=0
-##            while ii<zSize:
-##                  resultAbBPM[i,ii]= abs(resultBPM[i,ii])
-##                  ii=ii+1
-##            i=i+1
-##      
-      #show real part of resultBPM   
-      pl.figure(666)
+      #  
+      pl.figure(1)
       matrix=np.matrix(resultAbBPM[:,:])
       pl.imshow(matrix)
       pl.colorbar()
+      pl.title('magnitude distribution')
       pl.draw()
       pl.show()
+      
 
-      pl.figure(999)
+      pl.figure(2)
       x_axis=[]
       y_axis=[]
       xCurrent=0
@@ -186,36 +155,12 @@ def PadeApproximation(startAr ,nRef, freq, nMeshAr,xSize,zSize,xStep,zStep):
             y_axis.append(resultAbBPM[xCurrent,zCurrent])
             xCurrent=xCurrent+1
 
-      pl.title('Output_power_density')
+      pl.title('magnitude distribution at output')
       pl.plot(x_axis,y_axis)
       pl.draw()
-
-
-      pl.figure(666)
-      matrix=np.matrix(resultBPM[:,:].real)
-      pl.imshow(matrix)
-      pl.colorbar()
-      pl.draw()
       pl.show()
 
-      pl.figure(666)
-      matrix=np.matrix(resultBPM[:,:].imag)
-      pl.imshow(matrix)
-      pl.colorbar()
-      pl.draw()
-      pl.show()
         
-            
-##      print y.shape
-##      print y.ndim
-      
-
-
-
-            
-
-
-      
 
       return 0
 

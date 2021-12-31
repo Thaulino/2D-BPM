@@ -11,7 +11,7 @@ import Pade1
 
 
 
-print("\n \n ###################### Start ################################## \n\n")
+print("###################### Start ################################## ")
 
 
 
@@ -242,34 +242,12 @@ zz1=zz2
 zz2=zz1+10
 
 waveguide_image[ (xx3+1):(xx4+1),zz1:width_im]=core_color
-
-
-
-
-
-####
-####   
-
-
 ######## simulation settings end
-
-#print 0.48*height_im
-#print 0.52*width_im
 
 # show simulation world
 image=waveguide_image
-#pic = im.fromarray(image, 'RGB')
-#pic.save('image.ppm')
-#pic.save('image.jpg')
-#master = tk.Tk()
-#master.title("My World")
-#canvas = tk.Canvas(master, width= width_im, height=height_im)
-#canvas.pack()
-#img = tk.PhotoImage(file="image.ppm")
-#canvas.create_image(0,0, anchor=tk.NW, image=img)
-#tk.mainloop()
 
-    # ############################## Direction #############################
+############################### Direction #############################
 
 left_to_right = 1
 dir = 0
@@ -286,8 +264,6 @@ else:
     print("!!! check direction !!!")
 
 
-#if ((raw_input())=='y'):
-#    print 'Finish'
 
 
 # ############################## Analyse structure #############################
@@ -331,7 +307,7 @@ while i<height_im:
    
 
 #print("1 px=",le_px,"m"
-print("1 px \n             ->",le_px*ma.pow(10,6),"um \n\n")
+print("1 px              ->",le_px*ma.pow(10,6),"um ")
 
 #higher cladding
 claddingH=[colorchange_list[1]+1, height_im]
@@ -344,7 +320,7 @@ claddingL=[0, colorchange_list[0]-1]
    
 # calculate width of core
 d_core=(core[1]-core[0])*le_px/2
-print("d core of waveguide \n             ->",d_core)
+print("d core of waveguide              ->",d_core)
 
 #center of core (px)
 center_for_BPM =  core[0]+ (core[1]-core[0])/2
@@ -361,13 +337,13 @@ c_vacuum =2.998
 c_vacuum =c_vacuum*ma.pow(10,8)
 #print("c=",c_vacuum)
 
-print("\n \n++++++ Start Mode analysis ++++++++++++++++++++++++++++++++++++++++\n \n")
+print("+++++ Start Mode analysis ++++++++++++++++++++++++++++++++++++++++")
 
 # #######################################Frequency for analysis
 
 #given Frequency
 f_given = 10*ma.pow(10,12)
-# print("Frequency for analysis  \n             ->",f_given*ma.pow(10,-12),"THz"
+# print("Frequency for analysis               ->",f_given*ma.pow(10,-12),"THz"
 
 
 # ###################################### Variables for analysis of world
@@ -382,13 +358,6 @@ k_vacuum = 2*ma.pi/L_vacuum
 k1= n1*k_vacuum
 # k -vector cladding
 k2= n2*k_vacuum
-# Dn^2 constant for simulation world
-#Dnworld= ma.pow(n1,2)-ma.pow(n2,2)
-
-# Vworld -  constant for simulation world
-#Vworld= (2*ma.pi*d_core)*(1/L_vacuum)*ma.sqrt(Dnworld)
-#print("V constant for simulation world \n             ->", Vworld
-
 
 
 # Functions used by mode solver
@@ -480,13 +449,13 @@ while f_given<=1000*ma.pow(10,12):
 #pl.draw()   
 
 ########################################## BPM Simulation ###################################################
-print("\n \n+++++++++ Start BPM sim ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n \n")
+print("+++++++++ Start BPM sim ++++++++++++++++++++++++++++++++++++++++++++++++++++++++  ")
 
-print("Frequency for BPM \n                     --> ",BPM_freq*ma.pow(10,-12),"THZ")
-print("effective index for BPM \n                     --> ",BPM_neff)
-print("A (amplitude) for BPM \n                     --> ",BPM_A)
+print("Frequency for BPM  --> ",BPM_freq*ma.pow(10,-12),"THZ")
+print("effective index for BPM --> ",BPM_neff)
+print("A (amplitude) for BPM --> ",BPM_A)
 
-print("\n ++++++++ Calc initial mode \n")
+print(" ++++++++ Calc initial mode ")
 
 L_vacuum = c_vacuum/BPM_freq
 k_vacuum = 2*ma.pi/L_vacuum
@@ -546,8 +515,9 @@ while x_counter<height_im:
       yAxList.append(function_Hz_core(x_normalized,k1,BPM_bheta,BPM_A,d_core))
    x_counter=x_counter+1
 
-pl.figure(700)
+pl.figure(0)
 pl.plot(x_axis,y_axis)
+pl.title("magnitude distribution at input")
 
 pl.draw()
 pl.show()
